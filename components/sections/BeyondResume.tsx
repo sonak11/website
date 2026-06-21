@@ -2,96 +2,59 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const facts = [
-  {
-    label: "I believe in",
-    value: "Explainability as a first-class design constraint — not an afterthought.",
-  },
-  {
-    label: "Mentoring",
-    value:
-      "I mentor first-year Honors students on breaking into research. Getting that first lab opportunity is the hardest part.",
-  },
-  {
-    label: "Learning loop",
-    value:
-      "Paper → implement a minimal version → find where it breaks → understand why. Reading alone doesn't stick.",
-  },
-  {
-    label: "Currently reading",
-    value: "Thinking Fast and Slow (Kahneman) and papers on uncertainty quantification in safety-critical ML.",
-  },
-  {
-    label: "Pet peeve",
-    value:
-      "Dashboards that show a model's output without any indication of confidence or failure modes.",
-  },
-  {
-    label: "What drives me",
-    value:
-      "The gap between what ML can do in a notebook and what it actually does in deployment is still enormous. I want to close it.",
-  },
-];
+import { beyondItems } from "@/lib/data";
 
 export function BeyondResume() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
-    <section className="py-24 px-6 bg-[var(--muted)]/30">
-      <div className="mx-auto max-w-5xl" ref={ref}>
+    <section className="section-pad border-t border-[var(--border)] bg-[var(--bg-card)]" ref={ref}>
+      <div className="max-site">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="flex items-center gap-6 mb-20"
         >
-          <p className="text-xs font-mono font-medium text-indigo-400 uppercase tracking-widest mb-4">
-            Beyond the Resume
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--foreground)]">
-            How I actually think.
-          </h2>
-          <p className="mt-3 text-[var(--muted-foreground)] text-lg">
-            Things that don&apos;t fit neatly into a bullet point.
-          </p>
+          <span className="label text-[var(--ink-faint)]">Beyond the resume</span>
+          <div className="flex-1 rule" />
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {facts.map((fact, i) => (
+        {/* Pull quote */}
+        <motion.blockquote
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-20 max-w-3xl"
+        >
+          <p
+            style={{ fontFamily: "var(--font-cormorant), Georgia, serif" }}
+            className="text-3xl md:text-4xl font-light text-[var(--ink)] leading-snug"
+          >
+            &ldquo;The best AI systems I&apos;ve seen don&apos;t try to replace
+            the expert — they try to make the expert&apos;s knowledge{" "}
+            <em>go further.</em>&rdquo;
+          </p>
+        </motion.blockquote>
+
+        {/* Grid of items */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-0">
+          {beyondItems.map((item, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"
+              key={item.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.1 + 0.3 }}
+              className="py-8 pr-8 border-r border-[var(--border)] last:border-r-0 border-b sm:border-b-0 first:pl-0"
+              style={{ paddingLeft: i === 0 ? 0 : "2rem" }}
             >
-              <p className="text-xs font-mono font-medium text-indigo-400 uppercase tracking-wider mb-2">
-                {fact.label}
-              </p>
-              <p className="text-sm text-[var(--foreground)] leading-relaxed">
-                {fact.value}
-              </p>
+              <p className="label text-[var(--copper)] mb-4">{item.label}</p>
+              <p className="text-sm leading-loose text-[var(--ink-muted)]">{item.text}</p>
             </motion.div>
           ))}
         </div>
-
-        {/* Quote */}
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-8 text-center"
-        >
-          <p className="text-lg md:text-xl font-light text-[var(--foreground)] leading-relaxed max-w-2xl mx-auto">
-            &ldquo;The best AI systems I&apos;ve seen don&apos;t try to replace the
-            expert — they try to make the expert&apos;s knowledge go further.&rdquo;
-          </p>
-          <p className="mt-4 text-sm text-[var(--muted-foreground)]">
-            — How I approach every project
-          </p>
-        </motion.blockquote>
       </div>
     </section>
   );

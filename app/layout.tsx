@@ -1,28 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Sonakshi Sharma — AI/ML Engineer & Researcher",
+  title: "Sonakshi Sharma",
   description:
-    "Building intelligent systems that help experts make better decisions. Research in Medical AI, Energy Forecasting, and Agentic Systems. Rutgers Honors College CS + Data Science.",
+    "AI researcher and engineer. Building intelligent systems that help experts make better decisions — in healthcare, energy, and beyond.",
   keywords: [
     "Sonakshi Sharma",
     "AI researcher",
-    "ML engineer",
+    "machine learning",
     "medical AI",
     "explainable AI",
     "energy forecasting",
@@ -33,34 +36,31 @@ export const metadata: Metadata = {
   authors: [{ name: "Sonakshi Sharma" }],
   openGraph: {
     type: "website",
-    locale: "en_US",
-    title: "Sonakshi Sharma — AI/ML Engineer & Researcher",
+    title: "Sonakshi Sharma",
     description:
-      "Building intelligent systems that help experts make better decisions.",
+      "AI researcher and engineer. Building intelligent systems that help experts make better decisions.",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sonakshi Sharma — AI/ML Engineer & Researcher",
-    description: "Building intelligent systems that help experts make better decisions.",
+    title: "Sonakshi Sharma",
+    description:
+      "AI researcher and engineer. Building intelligent systems that help experts make better decisions.",
   },
   robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full antialiased">
-        <ThemeProvider>
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+    <html lang="en">
+      <body className={`${inter.variable} ${cormorant.variable}`}>
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

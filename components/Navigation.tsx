@@ -1,79 +1,59 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const navLinks = [
-  { href: "#building", label: "Research" },
-  { href: "#projects", label: "Projects" },
-  { href: "#timeline", label: "Timeline" },
+const links = [
+  { href: "#questions", label: "Questions" },
+  { href: "#work", label: "Work" },
+  { href: "#notes", label: "Notes" },
   { href: "#contact", label: "Contact" },
 ];
 
 export function Navigation() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  useEffect(() => setMounted(true), []);
-
-  useMotionValueEvent(scrollY, "change", (y) => {
-    setScrolled(y > 20);
-  });
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 60));
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.5 }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-xl"
-          : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        scrolled ? "bg-[#F8F7F4]/90 backdrop-blur-sm border-b border-[var(--border)]" : ""
       )}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <nav className="max-site flex items-center justify-between px-6 md:px-10 py-5">
         <a
           href="#"
-          className="font-mono text-sm font-medium tracking-tight text-[var(--foreground)] hover:text-indigo-500 transition-colors"
+          style={{ fontFamily: "var(--font-cormorant), Georgia, serif" }}
+          className="text-lg font-light tracking-wide text-[var(--ink)] hover:text-[var(--copper)] transition-colors duration-300"
         >
-          sonakshi.
+          Sonakshi Sharma
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+        <div className="hidden md:flex items-center gap-10">
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="label text-[var(--ink-faint)] hover:text-[var(--ink)] transition-colors duration-300"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-lg p-2 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-all"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-          )}
-          <a
-            href="mailto:sonakshi@example.com"
-            className="hidden md:inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 transition-colors"
-          >
-            Get in touch
-          </a>
-        </div>
+        <a
+          href="mailto:sonakshi@example.com"
+          className="label hidden md:block text-[var(--ink-muted)] hover:text-[var(--copper)] transition-colors duration-300 underline-copper"
+        >
+          Get in touch ↗
+        </a>
       </nav>
     </motion.header>
   );

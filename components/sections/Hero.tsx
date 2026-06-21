@@ -1,140 +1,102 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { ArrowDown, Sparkles } from "lucide-react";
-
-const container: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-};
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
-      {/* Grid background */}
-      <div className="absolute inset-0 grid-bg opacity-40" />
+    <section className="relative min-h-screen flex flex-col justify-end pb-20 px-6 md:px-10 pt-32 overflow-hidden">
+      {/* Faint vertical rule, purely decorative */}
+      <div
+        className="absolute left-[calc(50%+120px)] top-0 bottom-0 w-px hidden xl:block"
+        style={{ background: "var(--border)" }}
+      />
 
-      {/* Radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 max-w-4xl mx-auto text-center"
-      >
-        {/* Status badge */}
-        <motion.div variants={item} className="mb-8 inline-flex items-center gap-2">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-400">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
-            </span>
-            Open to research & engineering roles · Summer 2025
-          </span>
-        </motion.div>
-
-        {/* Name */}
-        <motion.h1
-          variants={item}
-          className="text-5xl md:text-7xl font-bold tracking-tight text-[var(--foreground)] leading-[1.05]"
-        >
-          Sonakshi Sharma
-        </motion.h1>
-
-        {/* Tagline */}
+      <div className="max-site w-full">
+        {/* Pre-title label */}
         <motion.p
-          variants={item}
-          className="mt-4 text-2xl md:text-3xl font-light tracking-tight"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="label text-[var(--ink-faint)] mb-8"
         >
-          <span className="gradient-text font-medium">AI/ML Engineer</span>
-          <span className="text-[var(--muted-foreground)]"> & </span>
-          <span className="gradient-text font-medium">Researcher</span>
+          AI Researcher & Engineer · Rutgers University · Class of 2026
         </motion.p>
 
-        {/* Statement */}
-        <motion.p
-          variants={item}
-          className="mt-8 max-w-2xl mx-auto text-lg md:text-xl text-[var(--muted-foreground)] leading-relaxed font-light"
-        >
-          I build intelligent systems that help experts make better decisions —
-          in healthcare, energy, and beyond. Currently researching at the
-          intersection of{" "}
-          <span className="text-[var(--foreground)] font-medium">
-            explainable AI
-          </span>
-          ,{" "}
-          <span className="text-[var(--foreground)] font-medium">
-            generative modeling
-          </span>
-          , and{" "}
-          <span className="text-[var(--foreground)] font-medium">
-            agentic reasoning
-          </span>
-          .
-        </motion.p>
-
-        {/* Credentials row */}
-        <motion.div
-          variants={item}
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[var(--muted-foreground)]"
-        >
-          {[
-            "Rutgers Honors College",
-            "Cornell Break Through Tech AI",
-            "IEEE NLP Fellow",
-            "Medical AI Researcher",
-          ].map((cred) => (
-            <span key={cred} className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-indigo-500" />
-              {cred}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTAs */}
-        <motion.div
-          variants={item}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href="#building"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-medium text-white hover:bg-indigo-500 transition-all hover:shadow-lg hover:shadow-indigo-500/20 active:scale-95"
+        {/* Main name — editorial display */}
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="display-xl text-[var(--ink)]"
           >
-            <Sparkles size={15} />
-            See what I&apos;m building
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] px-6 py-3 text-sm font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]/20 transition-all active:scale-95"
+            Sonakshi
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
+            className="display-xl text-[var(--ink)]"
+            style={{ fontStyle: "italic" }}
           >
-            Get in touch
-          </a>
+            Sharma
+          </motion.h1>
+        </div>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ scaleX: 0, originX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+          className="rule mt-10 mb-10"
+        />
+
+        {/* Tagline + credentials row */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+        >
+          <p
+            style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300 }}
+            className="text-2xl md:text-3xl text-[var(--ink)] leading-snug max-w-lg"
+          >
+            Building systems that help experts{" "}
+            <em>make better decisions.</em>
+          </p>
+
+          <div className="flex flex-col gap-2 md:text-right shrink-0">
+            {[
+              "Cornell Break Through Tech AI Fellow",
+              "IEEE NLP Fellow",
+              "Medical AI Researcher",
+              "RAD Collaboratory",
+            ].map((cred) => (
+              <p key={cred} className="label text-[var(--ink-faint)]">
+                {cred}
+              </p>
+            ))}
+          </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--muted-foreground)]"
+        transition={{ delay: 1.6, duration: 0.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown size={16} />
-        </motion.div>
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-10 bg-[var(--ink-faint)]"
+        />
+        <p className="label text-[var(--ink-faint)]">Scroll</p>
       </motion.div>
     </section>
   );

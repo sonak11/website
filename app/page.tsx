@@ -1,9 +1,9 @@
 import { Hero } from "@/components/sections/Hero";
-import { WhatImBuilding } from "@/components/sections/WhatImBuilding";
-import { FeaturedResearch } from "@/components/sections/FeaturedResearch";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
-import { ResearchTimeline } from "@/components/sections/ResearchTimeline";
-import { LearningInPublic } from "@/components/sections/LearningInPublic";
+import { ThreeQuestions } from "@/components/sections/ThreeQuestions";
+import { ResearchAtlas } from "@/components/sections/ResearchAtlas";
+import { SelectedWork } from "@/components/sections/SelectedWork";
+import { ResearchNotes } from "@/components/sections/ResearchNotes";
+import { CurrentFocus } from "@/components/sections/CurrentFocus";
 import { BeyondResume } from "@/components/sections/BeyondResume";
 import { Contact } from "@/components/sections/Contact";
 
@@ -11,11 +11,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <WhatImBuilding />
-      <FeaturedResearch />
-      <FeaturedProjects />
-      <ResearchTimeline />
-      <LearningInPublic />
+      <ThreeQuestions />
+      <ResearchAtlas />
+      <SelectedWork />
+      <ResearchNotes />
+      <CurrentFocus />
       <BeyondResume />
       <Contact />
     </>

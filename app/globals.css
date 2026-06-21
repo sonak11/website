@@ -1,84 +1,122 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --border: #e4e4e7;
-  --card: #fafafa;
-}
-
-.dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --border: #27272a;
-  --card: #18181b;
+  --bg:          #F8F7F4;
+  --bg-card:     #F2F0EB;
+  --bg-hover:    #EDE9E2;
+  --ink:         #1A1A18;
+  --ink-muted:   #6B6B65;
+  --ink-faint:   #9E9D97;
+  --border:      #E0DDD6;
+  --sage:        #7A9E7E;
+  --sage-light:  #D4E4D6;
+  --copper:      #B5763A;
+  --copper-light:#E8D0B0;
+  --radius:      4px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans:   var(--font-inter);
+  --font-serif:  var(--font-cormorant);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+/* ─── Reset & base ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  background: var(--bg);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: #818cf8;
-  color: #fff;
+  background: var(--copper-light);
+  color: var(--ink);
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
 :focus-visible {
-  outline: 2px solid #6366f1;
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 1.5px solid var(--copper);
+  outline-offset: 3px;
+  border-radius: var(--radius);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ─── Typography helpers ──────────────────────────────────── */
+.font-serif  { font-family: var(--font-serif), "Georgia", serif; }
+.font-sans   { font-family: var(--font-sans), system-ui, sans-serif; }
+
+/* Editorial display text */
+.display-xl {
+  font-family: var(--font-serif), "Georgia", serif;
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.display-lg {
+  font-family: var(--font-serif), "Georgia", serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.display-md {
+  font-family: var(--font-serif), "Georgia", serif;
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
-.grid-bg {
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
+/* Small caps label */
+.label {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
 
-.glow-indigo {
-  box-shadow: 0 0 80px -20px rgba(99, 102, 241, 0.4);
+/* ─── Utility classes ─────────────────────────────────────── */
+.section-pad { padding: 7rem 1.5rem; }
+
+@media (min-width: 768px) { .section-pad { padding: 9rem 2.5rem; } }
+@media (min-width: 1024px) { .section-pad { padding: 11rem 4rem; } }
+
+.max-prose { max-width: 68ch; }
+.max-site  { max-width: 1200px; margin-inline: auto; }
+
+/* Thin rule */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
 }
+
+/* Copper underline on hover */
+.underline-copper {
+  position: relative;
+  display: inline-block;
+}
+.underline-copper::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--copper);
+  transition: width 0.35s ease;
+}
+.underline-copper:hover::after { width: 100%; }
